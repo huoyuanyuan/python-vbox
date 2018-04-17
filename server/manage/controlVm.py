@@ -1,9 +1,12 @@
 import subprocess
 
-def startVm(uuid=''):
-	cmd = 'VBoxManage startvm ' + uuid;
-	if len(uuid) == 0:
+# name:控制虚拟机名字  contInfo:操作字段 (pause,resume,reset,poweroff)
+def controlVm(name,contInfo):
+	cmd = 'VBoxManage controlvm ' + name + ' ' + contInfo;
+	if len(name) == 0:
 		return '需要uuid或者name'
+	elif len(contInfo) == 0:
+		return '需要操作字段'
 	else:
 		p = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE)
 		while p.poll() is None:

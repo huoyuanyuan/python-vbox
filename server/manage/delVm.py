@@ -1,7 +1,7 @@
 import subprocess
 
-def startVm(uuid=''):
-	cmd = 'VBoxManage startvm ' + uuid;
+def delVm(uuid=''):
+	cmd = 'VBoxManage unregistervm ' + uuid +' -delete';
 	if len(uuid) == 0:
 		return '需要uuid或者name'
 	else:

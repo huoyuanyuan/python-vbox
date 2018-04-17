@@ -15,4 +15,3 @@ def getVmList(running=False):
 			uuid = arr[1][:-1]
 			vmList[name] = uuid
 	return vmList
-getVmList()

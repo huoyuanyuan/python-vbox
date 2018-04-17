@@ -4,13 +4,9 @@
 <script type="text/javascript" src="{{url_for('static',filename='js/page/vmlist.js')}}"></script>
 {% endblock %}
 {% block body %}
-	{% if running %}
-	<h1>运行虚拟机列表</h1>
-	{% else %}
-	<h1>所有虚拟机列表</h1>
-	{% endif %}
-
-	{% if lenN>0 %}
+	
+	<h1>未运行虚拟机列表</h1>
+	{% if lenNo>0 %}
 	<table class="table table-bordered table-responsive table-hover table-striped">
 		<thead>
 			<tr>
@@ -20,17 +16,43 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for key in vmlist %}
-			<tr>
+			{% for key in noRList %}
+			<tr data-name="{{key}}" data-uuid="{{noRList[key]}}">
 				<td>{{key}}</td>
-				<td>{{vmlist[key]}}</td>
+				<td>{{noRList[key]}}</td>
 				<td>
-					{% if running %}
-					<button data-name="{{key}}" data-uuid="{{vmlist[key]}}" type="button" class="btn btn-primary jBtnClose">关闭</button>
-					{% else %}
-					<button data-name="{{key}}" data-uuid="{{vmlist[key]}}" type="button" class="btn btn-primary jBtnBegin">启动</button>
-					{% endif %}
-					<button data-name="{{key}}" data-uuid="{{vmlist[key]}}" type="button" class="btn btn-danger jBtnDel">删除</button>
+					<button type="button" class="btn btn-primary jBtnBegin">启动</button>
+					<button type="button" class="btn btn-danger jBtnDel">删除</button>
+					<a href="{{url_for('get_vminfo',name=key)}}" type="button" class="btn btn-primary" href="">查看信息</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% else %}
+	<div>暂无可以运行虚拟机</div>
+	{% endif %}
+
+	<h1>运行虚拟机列表</h1>
+	{% if lenR>0 %}
+	<table class="table table-bordered table-responsive table-hover table-striped">
+		<thead>
+			<tr>
+				<td>vm名</td>
+				<td>vm uuid</td>
+				<td>操作</td>
+			</tr>
+		</thead>
+		<tbody>
+			{% for key in runningVmList %}
+			<tr data-name="{{key}}" data-uuid="{{runningVmList[key]}}">
+				<td>{{key}}</td>
+				<td>{{runningVmList[key]}}</td>
+				<td>
+					<button type="button" class="btn btn-primary jBtnPause">暂停</button>
+					<!-- <button type="button" class="btn btn-primary jBtnResume">恢复</button> -->
+					<button type="button" class="btn btn-primary jBtnReset">复位</button>
+					<button type="button" class="btn btn-primary jBtnClose">关闭</button>
 				</td>
 			</tr>
 			{% endfor %}
