@@ -8,7 +8,8 @@ def getVmInfo(name):
 	else:
 		p = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE)
 		out,err = p.communicate()
-		out = bytes.decode(out)
+		# out = bytes.decode(out)
+		out = out.decode("gbk")
 		infoList = {}
 		if len(out) > 0:
 			for line in out.splitlines():

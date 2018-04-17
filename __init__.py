@@ -6,6 +6,7 @@ from server.manage.startVm import startVm
 from server.manage.controlVm import controlVm
 from server.manage.delVm import delVm
 from server.manage.getVmInfo import getVmInfo
+from server.manage.createVm import createVm
 
 app = Flask(__name__)
 
@@ -108,6 +109,22 @@ def ajax_delVm():
 		pStatus = delVm(uuid)
 	else:
 		pStatus = delVm(name)
+	if pStatus == 0:
+		return jsonify({'status':1,'info':'执行成功'})
+	elif pStatus == 1:
+		return jsonify({'status':0,'pStatus':'执行失败'})
+# 创建虚拟机
+@app.route("/ajax_createVm",methods=['get'])
+def ajax_createVm():
+	# 获取get数据
+	name = request.args.get("name")
+	version = request.args.get("version")
+	if len(name) == 0:
+		return jsonify({'status':0,'info':"需要参数 name"})
+	elif len(version) == 0:
+		return jsonify({'status':0,'info':"需要参数 version"})
+	else:
+		pStatus = createVm(name,version)
 	if pStatus == 0:
 		return jsonify({'status':1,'info':'执行成功'})
 	elif pStatus == 1:
