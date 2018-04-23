@@ -28,7 +28,24 @@ def get_vmlist():
 			noRList[key] = vmlist[key]
 	lenNo = len(noRList)
 	lenR = len(runningVmList)
-	return render_template('vmlist.html',noRList=noRList,lenNo=lenNo,runningVmList=runningVmList,lenR=lenR)
+	noRListArr = []
+	rListArr = []
+
+	for key in noRList:
+		obj = {}
+		obj["name"] = key
+		obj["uuid"] = noRList[key]
+		vmInfo = getVmInfo(key);
+		obj["ostype"] = vmInfo['ostype']
+		noRListArr.append(obj)
+	for key in runningVmList:
+		obj = {}
+		obj["name"] = key
+		obj["uuid"] = runningVmList[key]
+		vmInfo = getVmInfo(key);
+		obj["ostype"] = vmInfo['ostype']
+		rListArr.append(obj)
+	return render_template('vmlist.html',noRListArr=noRListArr,lenNo=lenNo,rListArr=rListArr,lenR=lenR)
 # vm 运行列表
 @app.route("/runningVmList")
 def get_running_vmlist():
