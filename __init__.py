@@ -7,6 +7,7 @@ from server.manage.controlVm import controlVm
 from server.manage.delVm import delVm
 from server.manage.getVmInfo import getVmInfo
 from server.manage.createVm import createVm
+from server.manage.cloneVm import cloneVm
 
 app = Flask(__name__)
 
@@ -37,6 +38,7 @@ def get_vmlist():
 		obj["uuid"] = noRList[key]
 		vmInfo = getVmInfo(key);
 		obj["ostype"] = vmInfo['ostype']
+		obj['adrs'] = vmInfo['selfAdres']
 		noRListArr.append(obj)
 	for key in runningVmList:
 		obj = {}
@@ -44,6 +46,7 @@ def get_vmlist():
 		obj["uuid"] = runningVmList[key]
 		vmInfo = getVmInfo(key);
 		obj["ostype"] = vmInfo['ostype']
+		obj['adrs'] = vmInfo['selfAdres']
 		rListArr.append(obj)
 	return render_template('vmlist.html',noRListArr=noRListArr,lenNo=lenNo,rListArr=rListArr,lenR=lenR)
 # vm 运行列表
@@ -136,12 +139,37 @@ def ajax_createVm():
 	# 获取get数据
 	name = request.args.get("name")
 	version = request.args.get("version")
+	internalSize = request.args.get("internalSize")
+	memorySize = request.args.get("memorySize")
 	if len(name) == 0:
 		return jsonify({'status':0,'info':"需要参数 name"})
 	elif len(version) == 0:
 		return jsonify({'status':0,'info':"需要参数 version"})
+	elif internalSize == 0:
+		internalSize = 512
+	elif memorySize == 0:
+		memorySize =64
 	else:
-		pStatus = createVm(name,version)
+		pStatus = createVm(name,version,internalSize,memorySize)
+	if pStatus == 0:
+		return jsonify({'status':1,'info':'执行成功'})
+	elif pStatus == 1:
+		return jsonify({'status':0,'pStatus':'执行失败'})
+# 拷贝虚拟机
+@app.route("/ajax_cloneVm",methods=['get'])
+def ajax_cloneVm():
+	# 获取get数据
+	name = request.args.get("name")
+	version = request.args.get("version")
+	adrs = request.args.get("adrs")
+	if len(name) == 0:
+		return jsonify({'status':0,'info':"需要参数 name"})
+	elif len(version) == 0:
+		return jsonify({'status':0,'info':"需要参数 version"})
+	elif len(adrs) == 0:
+		return jsonify({'status':0,'info':"需要参数 adrs"})
+	else:
+		pStatus = cloneVm(name,version,adrs)
 	if pStatus == 0:
 		return jsonify({'status':1,'info':'执行成功'})
 	elif pStatus == 1:

@@ -17,18 +17,29 @@
 	.self-select .bootstrap-select{
         width: 100% !important;
     }
-    .jSubmit{
+    .jSubmit,.jSubmitClone{
         float: right;
     }
     .alert-create{
         width:500px;
-        height:400px;
+        height:470px;
         background:#eee;
         margin:0 auto;
         border-radius: 6px;
     }
     .alert-create .margin-top{
     	margin-top:40px;
+    }
+
+    .alert-clone{
+        width:500px;
+        height:200px;
+        background:#eee;
+        margin:0 auto;
+        border-radius: 6px;
+    }
+    .alert-clone .margin-top{
+    	margin-top:30px;
     }
        
 </style>
@@ -51,27 +62,28 @@
 		<tbody>
 			<!-- 运行虚拟机 -->
 			{% for item in rListArr %}
-			<tr data-name="{{item['name']}}" data-uuid="{{item['uuid']}}">
+			<tr data-name="{{item['name']}}" data-uuid="{{item['uuid']}}" data-ostype="{{item['ostype']}}" data-adrs="{{item['adrs']}}">
 				<td><a href="{{url_for('get_vminfo',name=item['name'])}}">{{item['name']}}</a></td>
 				<td>{{item['ostype']}}</td>
 				<td>运行中</td>
 				<td>
 					<button type="button" class="btn btn-primary jBtnPause">暂停</button>
 					<button type="button" class="btn btn-primary jBtnReset">重启</button>
-					<button type="button" class="btn btn-primary jBtnClose">关机</button>
+					<button type="button" class="btn btn-danger jBtnClose">关机</button>
 				</td>
 			</tr>
 			{% endfor %}
 
 			<!-- 未运行虚拟机 -->
 			{% for item in noRListArr %}
-			<tr data-name="{{item['name']}}" data-uuid="{{item['uuid']}}">
+			<tr data-name="{{item['name']}}" data-uuid="{{item['uuid']}}" data-ostype="{{item['ostype']}}" data-adrs="{{item['adrs']}}">
 				<td><a href="{{url_for('get_vminfo',name=item['name'])}}">{{item['name']}}</a></td>
 				<td>{{item['ostype']}}</td>
 				<td>未运行</td>
 				<td>
 					<button type="button" class="btn btn-primary jBtnBegin">启动</button>
 					<button type="button" class="btn btn-danger jBtnDel">删除</button>
+					<button type="button" class="btn btn-primary jBtnClone">拷贝</button>
 					<!-- <a href="{{url_for('get_vminfo',name=key)}}" type="button" class="btn btn-primary" href="">查看信息</a> -->
 				</td>
 			</tr>

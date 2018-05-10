@@ -13,8 +13,10 @@ def getVmInfo(name):
 		infoList = {}
 		if len(out) > 0:
 			for line in out.splitlines():
-				arr = re.split("=",line);
+				arr = re.split("=",line)
 				key = arr[0]
 				val = arr[1]
+				if len(val) > 5 and val[-5:] == '.vdi"':
+					infoList["selfAdres"] = val
 				infoList[key] = val
 		return infoList
