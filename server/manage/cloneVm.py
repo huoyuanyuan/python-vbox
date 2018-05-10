@@ -7,14 +7,6 @@ def cloneVm(name,version,adrs):
 	cmd2 = 'vBoxManage createvm -name '+name+' -ostype '+version+' -register'
 	cmd3 = 'vBoxManage storagectl '+ name +' --name "IDE Controller" --add ide --bootable on'
 	cmd4 = 'vBoxManage storageattach '+name+' --storagectl "IDE Controller" --port 0 --device 0 --type hdd --medium "'+vdiName+'"'
-	print(name)
-	print(version)
-	print(adrs)
-	print(vdiName)
-	print(cmd)
-	print(cmd2)
-	print(cmd3)
-	print(cmd4)
 	if len(name) == 0:
 		return '需要name'
 	elif len(adrs) == 0:
