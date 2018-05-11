@@ -140,17 +140,17 @@ def ajax_createVm():
 	name = request.args.get("name")
 	version = request.args.get("version")
 	internalSize = request.args.get("internalSize")
-	memorySize = request.args.get("memorySize")
+	# memorySize = request.args.get("memorySize")
 	if len(name) == 0:
 		return jsonify({'status':0,'info':"需要参数 name"})
 	elif len(version) == 0:
 		return jsonify({'status':0,'info':"需要参数 version"})
 	elif internalSize == 0:
 		internalSize = 512
-	elif memorySize == 0:
-		memorySize =64
+	# elif memorySize == 0:
+	# 	memorySize =64
 	else:
-		pStatus = createVm(name,version,internalSize,memorySize)
+		pStatus = createVm(name,version,internalSize,"64")
 	if pStatus == 0:
 		return jsonify({'status':1,'info':'执行成功'})
 	elif pStatus == 1:

@@ -59,12 +59,15 @@ $(function(){
             		'</div>',
             		'<div class="form-group">',
             			'<label for="internalSize">内存大小</label>',
-            			'<input type="text" class="form-control" name="internalSize" id="internalSize" placeholder="请输入内存大小">',
+            			'<div class="input-group">',
+	            			'<input type="text" class="form-control" name="internalSize" id="internalSize" placeholder="请输入内存大小" value="1024">',
+	            			'<span class="input-group-addon">MB</span>',
+            			'</div>',
             		'</div>',
-            		'<div class="form-group">',
-            			'<label for="memorySize">显存大小</label>',
-            			'<input type="text" class="form-control" name="memorySize" id="memorySize" placeholder="请输入显存大小">',
-            		'</div>',
+            		// '<div class="form-group">',
+            		// 	'<label for="memorySize">显存大小</label>',
+            		// 	'<input type="text" class="form-control" name="memorySize" id="memorySize" placeholder="请输入显存大小">',
+            		// '</div>',
             		'<button type="button" class="btn btn-primary  jSubmit disabled">创建</button>',
             	'</div>',
             '</div>',
@@ -135,12 +138,12 @@ $(function(){
 				var name = $("#name").val();
 				var version = $("#version").selectpicker("val");
 				var internalSize = $("#internalSize").val();
-				var memorySize = $("#memorySize").val();
+				// var memorySize = $("#memorySize").val();
 				var postData = {
 					name:name,
 					version:version,
 					internalSize:internalSize,
-					memorySize:memorySize
+					// memorySize:memorySize
 				}
 				console.log(postData)
 				var url = "ajax_createVm";
@@ -200,7 +203,7 @@ $(function(){
             	'<div class="col-md-12 margin-top">',
             		'<div class="form-group">',
             			'<label for="name">名称</label>',
-            			'<input type="text" class="form-control" name="name" id="name" placeholder="请输入名称">',
+            			'<input type="text" class="form-control" name="name" id="name" placeholder="请输入拷贝后虚拟机的名称">',
             		'</div>',
             		'<button type="button" class="btn btn-primary  jSubmitClone disabled">提交</button>',
             	'</div>',

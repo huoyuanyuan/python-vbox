@@ -19,4 +19,6 @@ def getVmInfo(name):
 				if len(val) > 5 and val[-5:] == '.vdi"':
 					infoList["selfAdres"] = val
 				infoList[key] = val
+		if infoList.get("selfAdres") == None:
+			infoList["selfAdres"] = ""
 		return infoList
